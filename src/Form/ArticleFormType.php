@@ -39,7 +39,7 @@ class ArticleFormType extends AbstractType
                 'placeholder' =>'Choose an author',
                 'choices' => $this->userRepository
                     ->findAllEmailAlphabetical(),
-                'invalid_message' => 'No valida data, try again :)'
+                'invalid_message' => 'No valida data, try again : )'
             ])
         ;
     }
