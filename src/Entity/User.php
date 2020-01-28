@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Faker\Provider\DateTime;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -65,6 +66,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Article", mappedBy="author")
      */
     private $articles;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $agreedTermsAt;
 
     public function __construct()
     {
@@ -250,5 +256,17 @@ class User implements UserInterface
     public function __toString()
     {
         return $this->getFirstName();
+    }
+
+    public function getAgreedTermsAt(): ?\DateTimeInterface
+    {
+        return $this->agreedTermsAt;
+    }
+
+    public function agreedTerms(): self
+    {
+        $this->agreedTermsAt = new \DateTime();
+
+        return $this;
     }
 }
